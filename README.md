@@ -103,14 +103,26 @@ http://localhost:<port>/swagger-ui/index.html
 ## Project Structure
 
 ```text
-src/main/java/com/bhavesh/roovia
+com.bhavesh.roovia
+├── advice
+├── config
 ├── controller
-├── service
-├── repository
-├── entity
 ├── dto
+├── entity
+├── exception
+├── repository
 ├── security
-└── ...
+├── service
+│   ├── booking
+│   ├── checkout
+│   ├── guest
+│   ├── hotel
+│   ├── inventory
+│   ├── pricing
+│   ├── room
+│   └── user
+├── strategy
+└── util
 ```
 
 ## License
