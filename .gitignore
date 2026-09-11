@@ -1,6 +1,8 @@
 # IDE Settings
 .idea/
 
+src/main/resources/application.properties
+
 # Build Files
 target/
 out/

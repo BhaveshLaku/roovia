@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 //import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -29,12 +30,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//import static com.bhavesh.roovia.util.AppUtils.getCurrentUser;
+import static com.bhavesh.roovia.util.AppUtils.getCurrentUser;
 
+//import static com.bhavesh.roovia.util.AppUtils.getCurrentUser;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class InventoryServiceImpl implements InventoryService {
+public class InventoryServiceImpl implements InventoryService{
     private final RoomRepository roomRepository;
     private final ModelMapper modelMapper;
 
@@ -45,7 +47,7 @@ public class InventoryServiceImpl implements InventoryService {
     public void initializeRoomForAYear(Room room) {
         LocalDate today = LocalDate.now();
         LocalDate endDate = today.plusYears(1);
-        for (; !today.isAfter(endDate); today = today.plusDays(1)) {
+        for (; !today.isAfter(endDate); today=today.plusDays(1)) {
             Inventory inventory = Inventory.builder()
                     .hotel(room.getHotel())
                     .room(room)
@@ -75,27 +77,17 @@ public class InventoryServiceImpl implements InventoryService {
         long dateCount =
                 ChronoUnit.DAYS.between(hotelSearchRequest.getStartDate(), hotelSearchRequest.getEndDate()) + 1;
 
-        Page<Hotel> hotelPage =
-                inventoryRepository.findHotelsWithAvailableInventory(hotelSearchRequest.getCity(),
-                hotelSearchRequest.getStartDate(),
-                hotelSearchRequest.getEndDate(),
-                hotelSearchRequest.getRoomsCount(),
-                dateCount,
-                pageable);
-
-
         // business logic - 90 days
-//        Page<HotelPriceDto> hotelPage =
-//                hotelMinPriceRepository.findHotelsWithAvailableInventory(hotelSearchRequest.getCity(),
-//                        hotelSearchRequest.getStartDate(), hotelSearchRequest.getEndDate(), hotelSearchRequest.getRoomsCount(),
-//                        dateCount, pageable);
+        Page<HotelPriceDto> hotelPage =
+                hotelMinPriceRepository.findHotelsWithAvailableInventory(hotelSearchRequest.getCity(),
+                        hotelSearchRequest.getStartDate(), hotelSearchRequest.getEndDate(), hotelSearchRequest.getRoomsCount(),
+                        dateCount, pageable);
 
-//        return hotelPage.map(hotelPriceDto -> {
-//            HotelPriceResponseDto hotelPriceResponseDto = modelMapper.map(hotelPriceDto.getHotel(), HotelPriceResponseDto.class);
-//            hotelPriceResponseDto.setPrice(hotelPriceDto.getPrice());
-//            return hotelPriceResponseDto;
-//        });
-        return hotelPage.map(hotel -> modelMapper.map(hotel, HotelPriceResponseDto.class));
+        return hotelPage.map(hotelPriceDto -> {
+            HotelPriceResponseDto hotelPriceResponseDto = modelMapper.map(hotelPriceDto.getHotel(), HotelPriceResponseDto.class);
+            hotelPriceResponseDto.setPrice(hotelPriceDto.getPrice());
+            return hotelPriceResponseDto;
+        });
 
     }
 
@@ -103,11 +95,10 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryDto> getAllInventoryByRoom(Long roomId) {
         log.info("Getting All inventory by room for room with id: {}", roomId);
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: " + roomId));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: "+roomId));
 
-//        User user = getCurrentUser();
-//        if (!user.equals(room.getHotel().getOwner()))
-//            throw new AccessDeniedException("You are not the owner of room with id: " + roomId);
+        User user = getCurrentUser();
+        if(!user.equals(room.getHotel().getOwner())) throw new AccessDeniedException("You are not the owner of room with id: "+roomId);
 
         return inventoryRepository.findByRoomOrderByDate(room).stream()
                 .map((element) -> modelMapper.map(element,
@@ -122,11 +113,10 @@ public class InventoryServiceImpl implements InventoryService {
                 updateInventoryRequestDto.getStartDate(), updateInventoryRequestDto.getEndDate());
 
         Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: " + roomId));
+                .orElseThrow(() -> new ResourceNotFoundException("Room not found with id: "+roomId));
 
-//        User user = getCurrentUser();
-//        if (!user.equals(room.getHotel().getOwner()))
-//            throw new AccessDeniedException("You are not the owner of room with id: " + roomId);
+        User user = getCurrentUser();
+        if(!user.equals(room.getHotel().getOwner())) throw new AccessDeniedException("You are not the owner of room with id: "+roomId);
 
         inventoryRepository.getInventoryAndLockBeforeUpdate(roomId, updateInventoryRequestDto.getStartDate(),
                 updateInventoryRequestDto.getEndDate());

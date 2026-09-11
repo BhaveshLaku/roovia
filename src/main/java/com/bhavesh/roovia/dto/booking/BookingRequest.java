@@ -1,4 +1,4 @@
-package com.bhavesh.roovia.dto;
+package com.bhavesh.roovia.dto.booking;
 
 import lombok.Data;
 

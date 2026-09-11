@@ -65,8 +65,6 @@ public class Booking {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    private Payment payment;
 
     @Column(unique = true)
     private String paymentSessionId;

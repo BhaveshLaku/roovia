@@ -1,9 +1,11 @@
-package com.bhavesh.roovia.dto;
+package com.bhavesh.roovia.dto.room;
 
 import com.bhavesh.roovia.entity.Room;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
@@ -11,4 +13,6 @@ import lombok.NoArgsConstructor;
 public class RoomPriceDto {
     private Room room;
     private Double price;
+
+
 }

@@ -1,9 +1,8 @@
-package com.bhavesh.roovia.dto;
+package com.bhavesh.roovia.dto.room;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
 public class RoomDto {

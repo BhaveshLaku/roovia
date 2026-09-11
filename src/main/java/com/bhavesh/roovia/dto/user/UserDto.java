@@ -1,4 +1,4 @@
-package com.bhavesh.roovia.dto;
+package com.bhavesh.roovia.dto.user;
 
 import com.bhavesh.roovia.entity.enums.Gender;
 import lombok.Data;

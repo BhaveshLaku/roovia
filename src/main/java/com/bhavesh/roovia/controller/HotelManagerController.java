@@ -1,7 +1,6 @@
 package com.bhavesh.roovia.controller;
 
 import com.bhavesh.roovia.dto.hotel.HotelDto;
-import com.bhavesh.roovia.service.booking.BookingService;
 import com.bhavesh.roovia.service.hotel.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/hotels")
 @RequiredArgsConstructor
 @Slf4j
-public class HotelAdminController {
+public class HotelManagerController {
 
     private final HotelService hotelService;
 //    private final BookingService bookingService;

@@ -2,5 +2,6 @@ package com.bhavesh.roovia.entity.enums;
 
 public enum Role {
     GUEST,
-    HOTEL_MANAGER
+    HOTEL_MANAGER,
+    ADMIN
 }

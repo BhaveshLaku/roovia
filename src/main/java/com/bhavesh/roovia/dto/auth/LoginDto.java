@@ -1,4 +1,4 @@
-package com.bhavesh.roovia.dto.user;
+package com.bhavesh.roovia.dto.auth;
 
 
 import lombok.Data;

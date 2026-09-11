@@ -1,4 +1,4 @@
-package com.bhavesh.roovia.dto;
+package com.bhavesh.roovia.dto.booking;
 
 import com.bhavesh.roovia.entity.enums.BookingStatus;
 import lombok.AllArgsConstructor;

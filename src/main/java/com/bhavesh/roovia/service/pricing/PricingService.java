@@ -1,6 +1,7 @@
-package com.bhavesh.roovia.strategy;
+package com.bhavesh.roovia.service.pricing;
 
 import com.bhavesh.roovia.entity.Inventory;
+import com.bhavesh.roovia.strategy.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

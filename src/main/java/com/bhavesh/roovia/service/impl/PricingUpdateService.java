@@ -6,7 +6,7 @@ import com.bhavesh.roovia.entity.Inventory;
 import com.bhavesh.roovia.repository.HotelMinPriceRepository;
 import com.bhavesh.roovia.repository.HotelRepository;
 import com.bhavesh.roovia.repository.InventoryRepository;
-import com.bhavesh.roovia.strategy.PricingService;
+import com.bhavesh.roovia.service.pricing.PricingService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
