@@ -13,30 +13,30 @@ import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
-public class AdminBootstrap implements CommandLineRunner {
+public class GodBootstrap implements CommandLineRunner {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Value("${app.admin.email}")
-    private String adminEmail;
+    @Value("${app.god.email}")
+    private String godEmail;
 
-    @Value("${app.admin.password}")
-    private String adminPassword;
+    @Value("${app.god.password}")
+    private String godPassword;
 
     @Override
     public void run(String... args) {
-        if (userRepository.existsByEmail(adminEmail)) {
+        if (userRepository.existsByEmail(godEmail)) {
             return; // already bootstrapped, do nothing
         }
 
-        User admin = new User();
-        admin.setName("Super Admin");
-        admin.setEmail(adminEmail);
-        admin.setPassword(passwordEncoder.encode(adminPassword));
-        admin.setRoles(Set.of(Role.ADMIN));
+        User god = new User();
+        god.setName("Super Admin");
+        god.setEmail(godEmail);
+        god.setPassword(passwordEncoder.encode(godPassword));
+        god.setRoles(Set.of(Role.GOD));
 
-        userRepository.save(admin);
-        System.out.println("Bootstrap admin created: " + adminEmail);
+        userRepository.save(god);
+        System.out.println("Bootstrap admin created: " + godEmail);
     }
 }

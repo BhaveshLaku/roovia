@@ -1,6 +1,9 @@
 package com.bhavesh.roovia.controller;
 
+import com.bhavesh.roovia.dto.booking.BookingDto;
 import com.bhavesh.roovia.dto.hotel.HotelDto;
+import com.bhavesh.roovia.dto.hotel.HotelReportDto;
+import com.bhavesh.roovia.service.booking.BookingService;
 import com.bhavesh.roovia.service.hotel.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/hotels")
 @RequiredArgsConstructor
@@ -16,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class HotelManagerController {
 
     private final HotelService hotelService;
-//    private final BookingService bookingService;
+    private final BookingService bookingService;
 
     @PostMapping
     @Operation(summary = "Create a new hotel", tags = {"Admin Hotel"})
@@ -53,29 +59,29 @@ public class HotelManagerController {
         hotelService.activateHotel(hotelId);
         return ResponseEntity.noContent().build();
     }
-//
-//    @GetMapping
-//    @Operation(summary = "Get all hotels owned by admin", tags = {"Admin Hotel"})
-//    public ResponseEntity<List<HotelDto>> getAllHotels() {
-//        return ResponseEntity.ok(hotelService.getAllHotels());
-//    }
-//
-//    @GetMapping("/{hotelId}/bookings")
-//    @Operation(summary = "Get all bookings of a hotel", tags = {"Admin Bookings"})
-//    public ResponseEntity<List<BookingDto>> getAllBookingsByHotelId(@PathVariable Long hotelId) {
-//        return ResponseEntity.ok(bookingService.getAllBookingsByHotelId(hotelId));
-//    }
-//
-//    @GetMapping("/{hotelId}/reports")
-//    @Operation(summary = "Generate a bookings report of a hotel", tags = {"Admin Bookings"})
-//    public ResponseEntity<HotelReportDto> getHotelReport(@PathVariable Long hotelId,
-//                                                         @RequestParam(required = false) LocalDate startDate,
-//                                                         @RequestParam(required = false) LocalDate endDate) {
-//
-//        if (startDate == null) startDate = LocalDate.now().minusMonths(1);
-//        if (endDate == null) endDate = LocalDate.now();
-//
-//        return ResponseEntity.ok(bookingService.getHotelReport(hotelId, startDate, endDate));
-//    }
+
+    @GetMapping
+    @Operation(summary = "Get all hotels owned by admin", tags = {"Admin Hotel"})
+    public ResponseEntity<List<HotelDto>> getAllHotels() {
+        return ResponseEntity.ok(hotelService.getAllHotels());
+    }
+
+    @GetMapping("/{hotelId}/bookings")
+    @Operation(summary = "Get all bookings of a hotel", tags = {"Admin Bookings"})
+    public ResponseEntity<List<BookingDto>> getAllBookingsByHotelId(@PathVariable Long hotelId) {
+        return ResponseEntity.ok(bookingService.getAllBookingsByHotelId(hotelId));
+    }
+
+    @GetMapping("/{hotelId}/reports")
+    @Operation(summary = "Generate a bookings report of a hotel", tags = {"Admin Bookings"})
+    public ResponseEntity<HotelReportDto> getHotelReport(@PathVariable Long hotelId,
+                                                         @RequestParam(required = false) LocalDate startDate,
+                                                         @RequestParam(required = false) LocalDate endDate) {
+
+        if (startDate == null) startDate = LocalDate.now().minusMonths(1);
+        if (endDate == null) endDate = LocalDate.now();
+
+        return ResponseEntity.ok(bookingService.getHotelReport(hotelId, startDate, endDate));
+    }
 
 }

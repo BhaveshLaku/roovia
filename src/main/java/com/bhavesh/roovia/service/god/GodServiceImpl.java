@@ -33,7 +33,7 @@ public class GodServiceImpl implements GodService{
 
         // Prevent an admin from removing their own ADMIN role (avoids locking everyone out)
         boolean isSelf = target.getEmail().equalsIgnoreCase(actingAdmin.getName());
-        if (isSelf && !newRoles.contains(Role.ADMIN)) {
+        if (isSelf && !newRoles.contains(Role.GOD)) {
             throw new InvalidOperationException("You cannot remove your own ADMIN role");
         }
 

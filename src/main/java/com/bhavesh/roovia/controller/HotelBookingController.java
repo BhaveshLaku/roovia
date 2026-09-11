@@ -3,7 +3,6 @@ package com.bhavesh.roovia.controller;
 import com.bhavesh.roovia.dto.booking.BookingDto;
 import com.bhavesh.roovia.dto.booking.BookingRequest;
 import com.bhavesh.roovia.dto.booking.BookingStatusResponseDto;
-import com.bhavesh.roovia.dto.booking.GuestDto;
 import com.bhavesh.roovia.service.booking.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

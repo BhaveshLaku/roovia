@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/god")
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
-public class AdminUserController {
+public class GodUserController {
 
     private final GodService godService;   // <-- final, and injected via constructor
 
